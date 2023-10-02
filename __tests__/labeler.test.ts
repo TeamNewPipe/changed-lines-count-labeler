@@ -1,4 +1,4 @@
-import {checkBoundaries} from "../src/labeler";
+import { checkBoundaries } from "../src/labeler";
 
 import * as core from "@actions/core";
 

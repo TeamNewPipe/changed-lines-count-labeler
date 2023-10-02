@@ -29,8 +29,12 @@ export async function run() {
     });
 
     core.debug(`fetching changed files for pr #${prNumber}`);
-    const changedLinesCnt: number = pullRequest.additions + pullRequest.deletions;
-    const config: Map<string, LabelConfig> = await getConfig(client, configPath); // Label to its config
+    const changedLinesCnt: number =
+      pullRequest.additions + pullRequest.deletions;
+    const config: Map<string, LabelConfig> = await getConfig(
+      client,
+      configPath
+    ); // Label to its config
 
     const labels: string[] = [];
     const labelsToRemove: string[] = [];
@@ -69,7 +73,10 @@ async function getConfig(
   client: ClientType,
   configurationPath: string
 ): Promise<Map<string, LabelConfig>> {
-  const configurationContent: string = await fetchContent(client, configurationPath);
+  const configurationContent: string = await fetchContent(
+    client,
+    configurationPath
+  );
   const configObject: any = yaml.load(configurationContent);
   return getLabelConfigMapFromObject(configObject);
 }
@@ -96,17 +103,24 @@ function getLabelConfigMapFromObject(
     if (configObject[label] instanceof Object) {
       labelGlobs.set(label, configObject[label]);
     } else {
-      throw Error(`unexpected type for label ${label} (should be string or array of globs)`);
+      throw Error(
+        `unexpected type for label ${label} (should be string or array of globs)`
+      );
     }
   }
 
   return labelGlobs;
 }
 
-export function checkBoundaries(cnt: number, labelConfig: LabelConfig): boolean {
-  if ((labelConfig.min == undefined || labelConfig.min <= cnt) &&
-      (labelConfig.max == undefined || cnt <= labelConfig.max)) {
-    return true
+export function checkBoundaries(
+  cnt: number,
+  labelConfig: LabelConfig
+): boolean {
+  if (
+    (labelConfig.min == undefined || labelConfig.min <= cnt) &&
+    (labelConfig.max == undefined || cnt <= labelConfig.max)
+  ) {
+    return true;
   }
   return false;
 }

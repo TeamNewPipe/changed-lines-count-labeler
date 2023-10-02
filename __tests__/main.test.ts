@@ -61,7 +61,7 @@ describe("run", () => {
   it("deletes existing PR labels that is not longer insode of configured boundaries", async () => {
     let mockInput = {
       "repo-token": "foo",
-      "configuration-path": "bar"
+      "configuration-path": "bar",
     };
 
     jest
@@ -95,4 +95,3 @@ function usingLabelerConfigYaml(fixtureName: keyof typeof yamlFixtures): void {
     data: { content: yamlFixtures[fixtureName], encoding: "utf8" },
   });
 }
-
